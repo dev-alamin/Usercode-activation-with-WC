@@ -1,6 +1,28 @@
 <?php
-function bbg_user_activation_page()
-{ ?>
+namespace Benebear;
+
+class Menu{
+    public function __construct(){
+        add_action('admin_menu', [ $this, 'bbg_user_reg_menus' ] );
+    }
+
+    public function bbg_user_reg_menus(){
+        $hooks = add_menu_page(
+            __('User Activation', 'bbg'), 
+            __('User Activation', 'bbg'), 
+            'manage_options', 'bbg-user-activation', 
+            [ $this, 'bbg_user_activation_page'], 
+            'dashicons-book', 
+            77
+        );
+
+        $register = new Assets();
+
+        add_action('admin_head-' . $hooks . '', [ $register, 'register' ] );
+    }
+
+    
+    public function bbg_user_activation_page(){ ?>
     <div class="wrap">
         <div class="container">
             <div class="row">
@@ -111,4 +133,6 @@ function bbg_user_activation_page()
         </div>
     </div>
 <?php
+}
+
 }

@@ -1,0 +1,18 @@
+{
+    "name": "user/bene-bear-giving-uractivation",
+    "type": "wordpress-plugin",
+    "license": "GPLv2",
+    "autoload": {
+        "psr-4": {
+            "Benebear\\": "includes/"
+        }
+    },
+    "authors": [
+        {
+            "name": "dev-alamin",
+            "email": "hmalaminmb4@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}

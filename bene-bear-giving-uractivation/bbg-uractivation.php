@@ -22,67 +22,98 @@
  * Prefix:      BBG
  */
 
-use Automattic\WooCommerce\Blocks\BlockTypes\EmptyCartBlock;
 
 defined('ABSPATH') || die('No script kiddies please!');
 
-define('BBG_VERSION', 'BbgUrActivation');
-define('BBG_PLUGIN', __FILE__);
-define('BBG_PLUGIN_URL', plugin_dir_url(__FILE__));
-define('BBG_PLUGIN_PATH', plugin_dir_path(__FILE__));
+require_once __DIR__ . '/vendor/autoload.php';
 
-add_action('plugins_loaded', 'BBG_plugin_init');
-/**
- * Load localization files
- *
- * @return void
- */
-function BBG_plugin_init()
-{
-    load_plugin_textdomain('bbgurcode', false, dirname(plugin_basename(__FILE__)) . '/languages');
-}
+final class BeneBear{
 
+    // Version
+    const version = '1.0';
 
+    public function __construct(){
+        $this->define_constants();
 
-
-require BBG_PLUGIN_PATH . 'includes/form-handler.php';
-require BBG_PLUGIN_PATH . 'includes/database.php';
-require BBG_PLUGIN_PATH . 'includes/menu.php';
-require BBG_PLUGIN_PATH . 'includes/enqueue.php';
-require BBG_PLUGIN_PATH . 'includes/my-account.php';
-require BBG_PLUGIN_PATH . 'includes/urcode-cpt.php';
-require BBG_PLUGIN_PATH . 'includes/urcode-taxonomy.php';
-require BBG_PLUGIN_PATH . 'includes/urcode-metabox.php';
-require BBG_PLUGIN_PATH . 'includes/urcode-custom-column.php';
-require BBG_PLUGIN_PATH . 'templates/page_template.php';
-
-
-/**
- * Add a menu to admin lebel
- * @return void
- * @param #
- * 
- * 
- */
-
-register_activation_hook(__FILE__, 'bbg_do_things_upon_plugin_activation');
-
-if (!function_exists('bbg_do_things_upon_plugin_activation')) {
-
-    function bbg_do_things_upon_plugin_activation()
-    {
-        flush_rewrite_rules();
+        register_activation_hook(__FILE__, [ $this, 'activate' ] );
+        add_action( 'plugins_loaded', [ $this, 'init_plugin']);
     }
+
+
+    public static function init(){
+        static $instance = false;
+
+        if( ! $instance ) {
+            $instance = new self();
+        }
+
+        return $instance;
+    }
+
+    /**
+     * Define plugin's constant
+     * 
+     */
+
+     public function define_constants(){
+        define('BBG_VERSION', self::version );
+        define('BBG_PLUGIN', __FILE__);
+        define('BBG_PLUGIN_URL', plugin_dir_url(__FILE__));
+        define('BBG_PLUGIN_PATH', plugin_dir_path(__FILE__));        
+     }
+
+   
+    /**
+     * Init Plugin
+     * @return Void
+     */
+
+    public function init_plugin(){
+        new \Benebear\Assets();
+        new \Benebear\User();
+
+        if( is_admin() ) {
+            new \Benebear\Menu();
+        }else{
+            
+        }
+
+        load_plugin_textdomain('bbgurcode', false, dirname(plugin_basename(__FILE__)) . '/languages');
+    }
+
+     /**
+      * Activate plugin
+      *@return void
+      */
+
+      public function activate(){
+        // Stuff do upon plugin activation
+
+        $installer = new \Benebear\Installer();
+        $installer->run();
+
+      }
+
+   
+
 }
 
-add_action('admin_menu', 'bbg_user_reg_menus');
-
-function bbg_user_reg_menus()
-{
-    $hooks = add_menu_page(__('User Activation', 'bbg'), __('User Activation', 'bbg'), 'manage_options', 'bbg-user-activation', 'bbg_user_activation_page', 'dashicons-book', 77);
-    add_action('admin_head-' . $hooks . '', 'bbg_user_reg_enqueue_script');
+// Plugin activation function
+function benebear_giving(){
+    return BeneBear::init();
 }
-add_action('admin_init', 'bbg_custom_form_handler');
+
+// Kick-off the plugin
+benebear_giving();
+
+
+require plugin_dir_path( __FILE__ ) . 'includes/my-account.php';
+require plugin_dir_path( __FILE__ ) . 'includes/urcode-cpt.php';
+require plugin_dir_path( __FILE__ ) . 'includes/urcode-taxonomy.php';
+require plugin_dir_path( __FILE__ ) . 'includes/urcode-metabox.php';
+require plugin_dir_path( __FILE__ ) . 'includes/urcode-custom-column.php';
+require plugin_dir_path( __FILE__ ) . 'templates/page_template.php';
+
 
 
 
