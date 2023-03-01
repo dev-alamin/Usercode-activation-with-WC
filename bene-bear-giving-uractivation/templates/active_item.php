@@ -1,3 +1,22 @@
+<?php 
+ function activated_item_list(){
+    global $wpdb;
+    $table = $wpdb->prefix . 'bbg_user_registrations';
+    $user_id = get_current_user_id();
+
+    if (null == $user_id) {
+        return;
+    }
+
+    if (!empty($user_id)) {
+        $sql = "SELECT * FROM $table WHERE user_id = %d ORDER BY created_at DESC LIMIT 20";
+        $query = $wpdb->prepare($sql, $user_id);
+        $result = $wpdb->get_results($query);
+    }
+
+    return $result;
+}
+?>
 <table>
     <thead>
         <th>#</th>
@@ -9,7 +28,7 @@
         <?php
         $p_sn = 1;
         // Kick the query
-        foreach (get_activated_item_list() as $item) :
+        foreach (activated_item_list() as $item) :
             global $wpdb;
             $table = $wpdb->prefix . 'posts';
             $user_id = get_current_user_id();

@@ -1,5 +1,5 @@
 <?php
-namespace Benebear;
+namespace Benebear\Backend;
 
 class Menu{
     public function __construct(){
@@ -16,7 +16,7 @@ class Menu{
             77
         );
 
-        $register = new Assets();
+        $register = new \Benebear\Assets();
 
         add_action('admin_head-' . $hooks . '', [ $register, 'register' ] );
     }

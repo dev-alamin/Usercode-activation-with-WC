@@ -1,4 +1,6 @@
 <?php 
+// namespace Benebear\Backend;
+
 class PageTemplater {
 
 	/**
@@ -149,4 +151,5 @@ class PageTemplater {
 	}
 
 } 
-add_action( 'plugins_loaded', array( 'PageTemplater', 'get_instance' ) );
+
+// add_action( 'plugins_loaded', array( 'PageTemplater', 'get_instance' ) );

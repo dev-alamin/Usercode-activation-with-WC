@@ -69,11 +69,17 @@ final class BeneBear{
      */
 
     public function init_plugin(){
-        new \Benebear\Assets();
-        new \Benebear\User();
+        new \Benebear\Assets(); // Enqueue Assests
+        new \Benebear\User(); // User stuff
+        new \Benebear\Admin(); // Specific only for admin
+        new \Benebear\Frontend\WC\Classes\Myaccount(); // My account addding new menu 'Activation'
+        new \Benebear\Frontend\Form\Submit(); // My account form submit
+        
+
+    
 
         if( is_admin() ) {
-            new \Benebear\Menu();
+            new \Benebear\Backend\Menu();
         }else{
             
         }
@@ -105,14 +111,6 @@ function benebear_giving(){
 
 // Kick-off the plugin
 benebear_giving();
-
-
-require plugin_dir_path( __FILE__ ) . 'includes/my-account.php';
-require plugin_dir_path( __FILE__ ) . 'includes/urcode-cpt.php';
-require plugin_dir_path( __FILE__ ) . 'includes/urcode-taxonomy.php';
-require plugin_dir_path( __FILE__ ) . 'includes/urcode-metabox.php';
-require plugin_dir_path( __FILE__ ) . 'includes/urcode-custom-column.php';
-require plugin_dir_path( __FILE__ ) . 'templates/page_template.php';
 
 
 
