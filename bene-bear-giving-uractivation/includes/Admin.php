@@ -1,11 +1,11 @@
 <?php 
-namespace Benebear;
+namespace Woo\MC;
 
 class Admin{
     public function __construct(){
-        new \Benebear\Backend\Cpt();
-        new \Benebear\Backend\Metabox(); // Metabox for cpt
-        new \Benebear\Backend\AdminColumn(); // Admin column
+        new \Woo\MC\Backend\Cpt();
+        new \Woo\MC\Backend\Metabox(); // Metabox for cpt
+        new \Woo\MC\Backend\AdminColumn(); // Admin column
         
     }
 }

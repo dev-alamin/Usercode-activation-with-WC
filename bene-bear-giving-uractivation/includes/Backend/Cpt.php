@@ -1,5 +1,5 @@
 <?php
-namespace Benebear\Backend;
+namespace Woo\MC\Backend;
 
 class Cpt{
     public function __construct(){

@@ -4,8 +4,11 @@
     "license": "GPLv2",
     "autoload": {
         "psr-4": {
-            "Benebear\\": "includes/"
-        }
+            "Woo\\MC\\": "includes/"
+        },
+        "files": [
+            "includes/functions.php"
+        ]
     },
     "authors": [
         {

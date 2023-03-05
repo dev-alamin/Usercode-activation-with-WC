@@ -1,5 +1,5 @@
 <?php
-namespace Benebear\Backend;
+namespace Woo\MC\Backend;
 
 class AdminColumn{
     public function __construct(){

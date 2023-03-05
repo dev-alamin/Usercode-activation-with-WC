@@ -1,5 +1,5 @@
 <?php
-namespace Benebear\Backend;
+namespace Woo\MC\Backend;
 
 class Menu{
     public function __construct(){
@@ -16,7 +16,7 @@ class Menu{
             77
         );
 
-        $register = new \Benebear\Assets();
+        $register = new \Woo\MC\Assets();
 
         add_action('admin_head-' . $hooks . '', [ $register, 'register' ] );
     }

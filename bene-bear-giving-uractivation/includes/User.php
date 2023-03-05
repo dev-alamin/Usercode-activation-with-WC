@@ -1,9 +1,9 @@
 <?php
-namespace Benebear;
+namespace Woo\MC;
 
 class User{
     public function __construct(){
-        $form_handler = new \Benebear\Backend\FormHandler();
+        $form_handler = new \Woo\MC\Backend\FormHandler();
 
         $this->dispatch_action( $form_handler );
     }

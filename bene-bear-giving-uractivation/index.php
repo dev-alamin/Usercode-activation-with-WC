@@ -1,2 +1,1 @@
-<?php 
-echo 'Silence is golder';
+<?php // Silence is golder;

@@ -1,5 +1,5 @@
 <?php
-namespace Benebear;
+namespace Woo\MC;
 
 class Installer{
     public function run(){
@@ -8,13 +8,13 @@ class Installer{
     }
     
     public function add_version(){
-        $installed = get_option('benebear_giving_version');
+        $installed = get_option('woomc_giving_version');
 
         if( ! $installed ) {
-            $installed = update_option( 'benebear_giving_version', time() );
+            $installed = update_option( 'woomc_giving_version', time() );
         }
 
-        update_option( 'benebear_giving_version', BBG_VERSION );
+        update_option( 'woomc_giving_version', WOOMC_VERSION );
     }
 
     

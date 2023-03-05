@@ -5,9 +5,9 @@
  * Plugin URI:  
  * Description: This is the Benebear Extension Plugin.
  * Version:     1.0
- * Author:      245TECH LLC
- * Author URI:  https://245.tech/
- * Text Domain: bbgurcode
+ * Author:      Al Amin
+ * Author URI:  https://almn.me
+ * Text Domain: woomc
  * Domain Path: /languages
  * License:     GPL-2.0+
  * License URI: http://www.gnu.org/licenses/gpl-2.0.txt
@@ -19,20 +19,21 @@
  *
  * @wordpress-plugin
  *
- * Prefix:      BBG
+ * Prefix:      woomc
  */
 
 
 defined('ABSPATH') || die('No script kiddies please!');
 
-require_once __DIR__ . '/vendor/autoload.php';
+require_once __DIR__ . '/vendor/autoload.php'; // Composer
+require_once __DIR__ . '/templates/PageTemplater.php'; // Page template for Printing certificate
 
-final class BeneBear{
+final class Woocommerce_membership_card{
 
     // Version
     const version = '1.0';
 
-    public function __construct(){
+    private function __construct(){
         $this->define_constants();
 
         register_activation_hook(__FILE__, [ $this, 'activate' ] );
@@ -56,10 +57,10 @@ final class BeneBear{
      */
 
      public function define_constants(){
-        define('BBG_VERSION', self::version );
-        define('BBG_PLUGIN', __FILE__);
-        define('BBG_PLUGIN_URL', plugin_dir_url(__FILE__));
-        define('BBG_PLUGIN_PATH', plugin_dir_path(__FILE__));        
+        define('WOOMC_VERSION', self::version );
+        define('WOOMC_PLUGIN', __FILE__);
+        define('WOOMC_PLUGIN_URL', plugin_dir_url(__FILE__));
+        define('WOOMC_PLUGIN_PATH', plugin_dir_path(__FILE__));        
      }
 
    
@@ -69,22 +70,20 @@ final class BeneBear{
      */
 
     public function init_plugin(){
-        new \Benebear\Assets(); // Enqueue Assests
-        new \Benebear\User(); // User stuff
-        new \Benebear\Admin(); // Specific only for admin
-        new \Benebear\Frontend\WC\Classes\Myaccount(); // My account addding new menu 'Activation'
-        new \Benebear\Frontend\Form\Submit(); // My account form submit
+        new \Woo\MC\Assets();
+        new \Woo\MC\User();
+        new \Woo\MC\Frontend\WC\Classes\Myaccount();
+        new \Woo\MC\Frontend\Form\activate();
         
-
-    
-
         if( is_admin() ) {
-            new \Benebear\Backend\Menu();
+            new \Woo\MC\Admin(); // Specific only for admin
+            new \Woo\MC\Backend\Menu();
+            // \Woo\MC\Backend\PageTemplater::get_instance();
         }else{
             
         }
 
-        load_plugin_textdomain('bbgurcode', false, dirname(plugin_basename(__FILE__)) . '/languages');
+        load_plugin_textdomain('woomc', false, dirname(plugin_basename(__FILE__)) . '/languages');
     }
 
      /**
@@ -95,22 +94,19 @@ final class BeneBear{
       public function activate(){
         // Stuff do upon plugin activation
 
-        $installer = new \Benebear\Installer();
+        $installer = new \Woo\MC\Installer();
         $installer->run();
 
       }
-
-   
-
 }
 
 // Plugin activation function
-function benebear_giving(){
-    return BeneBear::init();
+function woocommerce_membership_card(){
+    return Woocommerce_membership_card::init();
 }
 
 // Kick-off the plugin
-benebear_giving();
+woocommerce_membership_card();
 
 
 

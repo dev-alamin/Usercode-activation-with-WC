@@ -1,5 +1,5 @@
 <?php 
-// namespace Benebear\Backend;
+// namespace WOO\MC\Backend;
 
 class PageTemplater {
 
@@ -69,7 +69,7 @@ class PageTemplater {
 
 		// Add your templates to this array.
 		$this->templates = array(
-		    'bbg-print-certificate.php' => 'Print Template',
+		    'print-certificate.php' => 'Print Template',
 		);
 			
 	} 
@@ -152,4 +152,4 @@ class PageTemplater {
 
 } 
 
-// add_action( 'plugins_loaded', array( 'PageTemplater', 'get_instance' ) );
+add_action( 'plugins_loaded', array( 'PageTemplater', 'get_instance' ) );

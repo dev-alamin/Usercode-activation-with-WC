@@ -1,5 +1,5 @@
 <?php 
-namespace Benebear\Backend;
+namespace Woo\MC\Backend;
 
 class Metabox{
     public function __construct(){

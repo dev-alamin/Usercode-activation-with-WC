@@ -1,5 +1,5 @@
 <?php 
-namespace Benebear\Frontend\WC;
+namespace Woo\MC\Frontend\WC;
 
 class WC{
 
